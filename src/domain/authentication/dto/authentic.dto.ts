@@ -5,5 +5,5 @@ export class AuthenticDTO {
   email: string;
 
   @IsNotEmpty({ message: 'A senha não pode estar vazia' })
-  senha: string;
+  password: string;
 }
