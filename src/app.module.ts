@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigService } from './config/postgres.config.service';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthenticationModule } from './domain/authentication/authentication.module';
+import { MessageModule } from './domain/message/message.module';
 
 @Module({
   imports: [
     AdopterModule,
+
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -17,6 +19,7 @@ import { AuthenticationModule } from './domain/authentication/authentication.mod
       inject: [PostgresConfigService],
     }),
     AuthenticationModule,
+    MessageModule,
   ],
 
   // controllers: [AppController],

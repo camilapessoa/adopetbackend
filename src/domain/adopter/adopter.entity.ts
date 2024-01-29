@@ -9,6 +9,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { MessageEntity } from '../message/message.entity';
 
 @Entity({ name: 'adopters' })
 export class AdopterEntity {
@@ -46,6 +47,6 @@ export class AdopterEntity {
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: string;
 
-  //   @OneToMany(() => PedidoEntity, (pedido) => pedido.usuario)
-  //   pedidos: PedidoEntity[]; mensagem
+  @OneToMany(() => MessageEntity, (msg) => msg.adopter)
+  msg: MessageEntity[]; //pode estar como propriedade mensagem, depois verificar
 }
