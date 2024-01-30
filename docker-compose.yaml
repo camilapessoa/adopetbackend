@@ -14,7 +14,7 @@
         networks:
           - postgres
         restart: unless-stopped
-    
+        command: bash -c 'if [ ! -d "$PGDATA" ]; then gosu postgres initdb; gosu postgres pg_ctl -D "$PGDATA" -o "-c listen_addresses='' -c max_connections=100" -w start; gosu postgres psql -U postgres -d postgres -c "CREATE DATABASE mydatabase"; gosu postgres pg_ctl -D "$PGDATA" -w stop; fi; gosu postgres postgres'
       pgadmin:
         image: dpage/pgadmin4
         environment:
