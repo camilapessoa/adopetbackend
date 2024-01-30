@@ -41,6 +41,17 @@ export class AdopterService {
     return checkEmail;
   }
 
+  async findById(id: string) {
+    const adopterId = await this.adopterRepository.findOneBy({
+      id,
+    });
+
+    if (adopterId === null)
+      throw new NotFoundException('O id não foi encontrado.');
+
+    return adopterId;
+  }
+
   async updateAdopter(id: string, newData: UpdateAdopterDTO) {
     const adopter = await this.adopterRepository.findOneBy({ id });
 

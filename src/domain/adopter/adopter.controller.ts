@@ -4,14 +4,17 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { AdopterService } from './adopter.service';
 import { CreateAdopterDTO } from './dto/CreateAdopter.dto';
 import { AdopterListDTO } from './dto/ListAdopter.dto';
 import { PipeHashing } from 'src/resources/pipes/hashing-pass.pipe';
 import { UpdateAdopterDTO } from './dto/UpdateAdopter.dto';
+import { AdopterReq } from '../authentication/authentication.guard';
 
 @Controller('adotante')
 export class AdopterController {
@@ -41,7 +44,17 @@ export class AdopterController {
     };
   }
 
-  @Put('/:id')
+  @Get('perfil/:id')
+  async findById(@Param('id') id: string) {
+    const perfil = await this.adopterService.findById(id);
+
+    return {
+      mensagem: 'Perfil carregado.',
+      perfil,
+    };
+  }
+
+  @Patch('perfil/:id')
   async updateAdopter(
     @Param('id') id: string,
     @Body() newData: UpdateAdopterDTO,
@@ -49,11 +62,11 @@ export class AdopterController {
     const updatedAdopter = await this.adopterService.updateAdopter(id, newData);
     return {
       message: `Atualização realizada com sucesso`,
-      adopter: updatedAdopter,
+      updatedAdopter,
     };
   }
 
-  @Delete('/id')
+  @Delete(':id')
   async removeAdopter(@Param('id') id: string) {
     const removedAdopter = await this.adopterService.deleteAdopter(id);
     return {
