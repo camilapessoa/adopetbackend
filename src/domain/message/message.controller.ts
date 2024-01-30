@@ -37,7 +37,7 @@ export class MessageController {
     };
   }
 
-  @Get()
+  @Get('/:id')
   async GetAdoptersMessages(@Req() req: AdopterReq) {
     const adopterId = req.adopter.sub;
     const msg = await this.messageService.getAdoptersMessage(adopterId);
